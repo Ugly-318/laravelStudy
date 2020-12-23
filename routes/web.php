@@ -8,42 +8,57 @@ Route::get('welcome', function () {
 //测试控制器,用于测试代码
 Route::get('/test',\App\Http\Controllers\TestController::class);
 
-
 //首页路由
 Route::get('/',[\App\Http\Controllers\IndexController::class,'index'])
-->name('index');
-
-//改变博客的状态,发布于不发布
-Route::patch('/blog/{id}',[\App\Http\Controllers\BlogController::class,'status'])
-->name('blog.status');
+    ->name('index');
 
 //博客资源路由
 Route::resource('blog',\App\Http\Controllers\BlogController::class)
-->except(['index']);
+    ->except(['index']);
 
-//个人中心-修改个人信息-页面
-Route::get('/user',[\App\Http\Controllers\UserController::class,'infoPage'])
-->name('user.info');
+//需要登录的页面
+Route::middleware('auth')->group(function () {
 
-//个人中心-修改个人信息-更新数据
-Route::put('/user',[\App\Http\Controllers\UserController::class,'infoUpdate'])
-->name('user.info.update');
+    //登陆后，博客相关路由
+    Route::prefix('blog')->name('blog.')->group(function () {
+        //改变博客的状态,发布于不发布
+        Route::patch('/{id}',[\App\Http\Controllers\BlogController::class,'status'])
+            ->name('status');
 
-//个人中心-头像-页面
-Route::get('/user/avatar',[\App\Http\Controllers\UserController::class,'avatarPage'])
-->name('user.avatar');
+        //评论路由
+        Route::post('/{id}/comment',\App\Http\Controllers\CommentController::class)
+            ->name('comment');
+    });
 
-//个人中心-头像-更新数据
-Route::put('/user/avatar',[\App\Http\Controllers\UserController::class,'avatarUpdate'])
-->name('user.avatar.update');
 
-//个人中心--所有博客
-Route::get('/user/blog',[\App\Http\Controllers\UserController::class,'blog'])
-->name('user.blog');
+    //个人中心相关路由
+    Route::prefix('user')->name('user.')->group(function () {
+        //个人中心-修改个人信息-页面
+        Route::get('/',[\App\Http\Controllers\UserController::class,'infoPage'])
+            ->name('info');
 
-//评论路由
-Route::post('/blog/{id}/comment',\App\Http\Controllers\CommentController::class)
-->name('blog.comment');
+        //个人中心-修改个人信息-更新数据
+        Route::put('/',[\App\Http\Controllers\UserController::class,'infoUpdate'])
+            ->name('info.update');
+
+        //个人中心-头像-页面
+        Route::get('/avatar',[\App\Http\Controllers\UserController::class,'avatarPage'])
+            ->name('avatar');
+
+        //个人中心-头像-更新数据
+        Route::put('/avatar',[\App\Http\Controllers\UserController::class,'avatarUpdate'])
+            ->name('avatar.update');
+
+        //个人中心--所有博客
+        Route::get('/blog',[\App\Http\Controllers\UserController::class,'blog'])
+            ->name('blog');
+    });
+
+
+});
+
+
+
 ////博客的首页
 //Route::get('/',function (){
 //    dd('博客的搜夜');

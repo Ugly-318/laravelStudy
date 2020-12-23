@@ -20,10 +20,14 @@
                         修改头像
                     </div>
                     <div class="card-body">
-                        <form class="col-md-6 offset-3">
+                        @include('common.error')
+                        @include('common.success')
+                        <form method="post" action="{{route('user.avatar.update')}}" class="col-md-6 offset-3" enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
                             <div class="form-group">
                                 <label for="exampleFormControlFile1">请选择头像上传</label>
-                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                <input name="avatar" type="file" class="form-control-file" id="exampleFormControlFile1">
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm w-100 mt-4 bg-blue text-white">修改</button>
                         </form>

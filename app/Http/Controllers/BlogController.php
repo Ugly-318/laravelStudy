@@ -6,6 +6,17 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
+
+    /**
+     * 实例化一个新的控制器实例
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * 添加博客的页面
      */
