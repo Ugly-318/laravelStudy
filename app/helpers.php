@@ -1,0 +1,30 @@
+<?php
+/**
+ * 返回博客的分类
+ */
+if (! function_exists('categories')) {
+
+    function categories()
+    {
+        //方式1: 检查key存不存在 决定要不要查询和缓存
+//        $categories = cache('categories');
+//
+//        if (empty($categories)) {
+//            //查询数据库
+//            $categories = \Illuminate\Support\Facades\DB::table('categories')
+//                ->pluck('name','id');
+//            //写入缓存
+//            cache(['categories' => $categories]);
+//        }
+
+        //方式2: 使用remember
+        $categories = cache()->rememberForever('categories',function () {
+            //查询数据库
+            $categories = \Illuminate\Support\Facades\DB::table('categories')
+                ->pluck('name','id');
+            return $categories;
+        });
+
+        return $categories;
+    }
+}

@@ -9,11 +9,6 @@
 @endsection
 
 @section('content')
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
     <div class="container">
         <div class="card mb-3 mt-4">
             <div class="card-body">
@@ -25,11 +20,10 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">分类</label>
                         <select class="form-control" id="exampleFormControlSelect1">
-                            <option>请选择分类</option>
-                            <option>php</option>
-                            <option>html</option>
-                            <option>css</option>
-                            <option>js</option>
+                            <option value="0">请选择分类</option>
+                            @foreach(categories() as $id => $name)
+                                <option value="{{ $id }}">{{ $name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">

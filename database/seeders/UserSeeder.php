@@ -3,25 +3,24 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class DatabaseSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call([
-            UserSeeder::class,
-            CategorySeeder::class
+        //添加用户测试数据
+        DB::table('users')->insert([
+            'name' => 'a',
+            'email' =>'a@gmail.com',
+            'password' => Hash::make('123123123'),
         ]);
-
-
     }
 }

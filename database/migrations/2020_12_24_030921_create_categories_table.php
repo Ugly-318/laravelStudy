@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAvatarToUsers extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddAvatarToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar')->nullable()->comment('用户头像');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->comment('分类的名称');
+
         });
     }
 
@@ -25,8 +27,6 @@ class AddAvatarToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('categories');
     }
 }
