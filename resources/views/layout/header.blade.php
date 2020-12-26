@@ -2,8 +2,14 @@
     <div class="container bg-light d-flex justify-content-between align-items-center">
         <div class="d-flex">
             <a class="logo" href="{{route('index')}}">Laravel</a>
-            <form class="form-inline my-2 my-lg-0 ml-3">
-                <input class="form-control form-control-sm" type="search" placeholder="搜索" aria-label="Search">
+            <form method="get" action="{{ route('index') }}" class="form-inline my-2 my-lg-0 ml-3">
+                <input value="{{ request()->query('keyword') }}" name="keyword" class="form-control form-control-sm" type="search" placeholder="搜索" aria-label="Search">
+                <select name="category_id" class="form-control form-control-sm ml-2" id="exampleFormControlSelect1">
+                    <option value="0">请选择分类</option>
+                    @foreach(categories() as $id => $name)
+                        <option {{ request()->query('category_id') == $id ? 'selected':''}} value="{{ $id }}">{{ $name }}</option>
+                    @endforeach
+                </select>
                 <button class="btn btn-sm btn-outline-success ml-2 px-4" type="submit">搜索</button>
             </form>
         </div>

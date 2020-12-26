@@ -21,38 +21,41 @@
             <div class="col-sm-9">
                 <div class="card">
                     <div class="card-body">
-                        @foreach(range(1, 10) as $v)
+                        @foreach($blogs as $blog)
                             <div class="article-body">
                                 <div>
-                                    <span class="article-author">小明</span>
-                                    <span class="article-time">6个月前</span>
+                                    <span class="article-author">{{$blog->user_id}}</span>
+                                    <span class="article-time">{{ $blog->updated_at->diffForHumans() }}</span>
                                 </div>
                                 <h2 class="font-weight-bold my-3 article-title">
-                                    <a class="text-dark" href="{{route('blog.show',['blog'=>1])}}">博客博客博客博客博客</a>
+                                    <a class="text-dark" href="{{route('blog.show',['blog'=>1])}}">{{$blog->title}}</a>
                                 </h2>
-                                <div class="article-des">博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述博客描述</div>
+                                <div class="article-des">{{ $blog->content }}</div>
                                 <div>
-                                    <a href="#" class="badge badge-warning mt-3 article-category">前端</a>
+                                    <a href="#" class="badge badge-warning mt-3 article-category">{{categories()[$blog->category_id]}}</a>
                                 </div>
                             </div>
                             <hr>
                         @endforeach
+{{--                        {{ $blogs->appends(['keyword' => request()->query('keyword')])->links() }}--}}
+                            {{ $blogs->withQueryString()->links() }}
 
-                        <nav class="d-flex justify-content-center mt-4">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">上一页</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">下一页</a>
-                                </li>
-                            </ul>
-                        </nav>
+
+                            {{--                        <nav class="d-flex justify-content-center mt-4">--}}
+{{--                            <ul class="pagination">--}}
+{{--                                <li class="page-item disabled">--}}
+{{--                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">上一页</a>--}}
+{{--                                </li>--}}
+{{--                                <li class="page-item"><a class="page-link" href="#">1</a></li>--}}
+{{--                                <li class="page-item active" aria-current="page">--}}
+{{--                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>--}}
+{{--                                </li>--}}
+{{--                                <li class="page-item"><a class="page-link" href="#">3</a></li>--}}
+{{--                                <li class="page-item">--}}
+{{--                                    <a class="page-link" href="#">下一页</a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </nav>--}}
                     </div>
                 </div>
             </div>
@@ -61,7 +64,7 @@
                     'imgUrl' => 'https://cdn2.lmonkey.com/Fl5bGoCQYm7i0G7yk3vatG5sok7K',
                     'title' => '博客网站',
                     'content' => '一个用来学习Laravel的博客项目, 基于Bootstrap4.0开发',
-                    'count' => '121',
+                    'count' => $blogs->count(),
                 ])
             </div>
         </div>

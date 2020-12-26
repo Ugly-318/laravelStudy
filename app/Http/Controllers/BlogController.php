@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogRequest;
+use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
@@ -31,9 +34,21 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
-        dd('自信博客的添加');
+        //方式1:使用DB构造器添加
+        $res = Blog::create([
+            'user_id' => auth()->id(),
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'category_id' => $request ->input('category_id'),
+        ]);
+
+        if ($res) {
+            return back()->with(['success'=>'添加成功']);
+        }else {
+            return back()->withErrors('添加失败')->withInput();
+        }
     }
 
     /**
@@ -53,9 +68,10 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Blog $blog)
     {
-        return view('blog.edit');
+//        dd($blog);
+        return view('blog.edit',['blog' => $blog]);
     }
 
     /**
@@ -65,9 +81,26 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BlogRequest $request, Blog $blog)
     {
-        dd('执行更新 ' .$id);
+//        dd($request->all());
+
+        //方式1:
+        $blog->title = $request->input('title');
+        $blog->content = $request->input('content');
+        $blog->category_id = $request->input('category_id');
+        $blog->save();
+
+//        dd($request->all());
+//        //方式2:
+//        $blog -> fill($request->except(['_token','_method']));
+//        $blog->save();
+
+        if ($blog) {
+            return back()->with(['success'=>'更新成功']);
+        }else{
+            return back()->withErrors('更新失败');
+        }
     }
 
     /**
