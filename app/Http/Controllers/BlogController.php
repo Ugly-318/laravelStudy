@@ -17,7 +17,7 @@ class BlogController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -59,7 +59,13 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        return view('blog.show');
+        $blog = Blog::with('comment.user')->where('id',$id)->first();
+
+        $blog->timestamps = false;
+        $blog->increment('view');
+        $blog->timestamps = true;
+        dd($blog);
+        return view('blog.show',['blog'=>$blog]);
     }
 
     /**

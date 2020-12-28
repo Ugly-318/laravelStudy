@@ -28,3 +28,16 @@ if (! function_exists('categories')) {
         return $categories;
     }
 }
+
+/**
+ *返回头像地址
+ */
+
+if (! function_exists('avatar')) {
+
+    function avatar($avatar)
+    {
+        $avatar_url = $avatar ? asset('storage/' . $avatar) : asset('img/default/avatar.jpg');
+        return $avatar_url;
+    }
+}

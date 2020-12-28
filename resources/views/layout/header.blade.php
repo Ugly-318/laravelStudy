@@ -16,7 +16,7 @@
         <div class="right-btn">
             @auth
                 <a href="{{route('user.info')}}" class="text-dark mr-3 text-decoration-none">
-                    <img width="30" height="30" src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('img/default/avatar.jpg')}}" class="rounded-pill" alt="用户头像加载失败">
+                    <img width="30" height="30" src="{{ avatar(auth()->user()->avatar)}}" class="rounded-pill" alt="用户头像加载失败">
                     <span>{{auth()->user()->name}}</span>
                 </a>
                 <form method="post" action="{{route('logout')}}" class="d-inline" id="logout">

@@ -58,4 +58,13 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * 用户拥有的博客
+     */
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class,'user_id','id');
+    }
+
 }

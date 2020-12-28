@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
             ->name('status');
 
         //评论路由
-        Route::post('/{id}/comment',\App\Http\Controllers\CommentController::class)
+        Route::post('/{blog}/comment',\App\Http\Controllers\CommentController::class)
             ->name('comment');
     });
 

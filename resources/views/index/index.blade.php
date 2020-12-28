@@ -24,11 +24,11 @@
                         @foreach($blogs as $blog)
                             <div class="article-body">
                                 <div>
-                                    <span class="article-author">{{$blog->user_id}}</span>
+                                    <span class="article-author">{{ $blog->user->name }}</span>
                                     <span class="article-time">{{ $blog->updated_at->diffForHumans() }}</span>
                                 </div>
                                 <h2 class="font-weight-bold my-3 article-title">
-                                    <a class="text-dark" href="{{route('blog.show',['blog'=>1])}}">{{$blog->title}}</a>
+                                    <a class="text-dark" href="{{route('blog.show',$blog)}}">{{$blog->title}}</a>
                                 </h2>
                                 <div class="article-des">{{ $blog->content }}</div>
                                 <div>
