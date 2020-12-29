@@ -59,12 +59,10 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        $blog = Blog::with('comment.user')->where('id',$id)->first();
-
+        $blog = Blog::with('comments.user')->where('id',$id)->first();
         $blog->timestamps = false;
         $blog->increment('view');
         $blog->timestamps = true;
-        dd($blog);
         return view('blog.show',['blog'=>$blog]);
     }
 
@@ -115,16 +113,32 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Blog $blog)
     {
-        dd('执行删除 ' .$id);
+        $res = $blog->delete();
+        if ($res) {
+            return response()->api('删除成功');
+        }else{
+            return response()->api('删除失败',400);
+        }
+
     }
 
     /**
      * 博客的状态,发布于不发布
      */
 
-    public function status($id){
-        dd('博客的状态,发布于不发布 ' .$id);
+    public function status(Blog $blog){
+//        dd($blog);
+        $blog->timestamps = false;
+        $blog->status = $blog->status == 1 ? 0 : 1;
+        $res = $blog->save();
+        if ($res) {
+            $msg = $blog->status == 1 ? '发布成功' : '已取消发布';
+            return response()->api($msg);
+        }else{
+            return response()->api('删除失败',400);
+        }
+
     }
 }

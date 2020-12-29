@@ -125,6 +125,15 @@ class UserController extends Controller
      */
     public function blog()
     {
-        return view('user.blog');
+//       dd(auth()->user()->blogs);
+        //查询博客所有博客
+        $blogs = auth()
+            ->user()
+            ->blogs()
+            ->withCount('comments')
+            ->orderBy('updated_at','desc')
+            ->paginate(5);
+//        dd($blogs);
+        return view('user.blog',['blogs'=>$blogs]);
     }
 }

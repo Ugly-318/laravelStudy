@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
-use App\Models\Flight;
-use App\Models\User;
+use App\Jobs\ProcessPodcast;
+use App\Mail\OrderShipped;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class TestController extends Controller
 {
 
     public function __invoke(Request $request)
     {
-        $blogs =Blog::all();
-        return response()->api('Success',200,$blogs);
+
+        //使用队列发送任务
+        ProcessPodcast::dispatch();
+        return 'HelloWord';
     }
 }

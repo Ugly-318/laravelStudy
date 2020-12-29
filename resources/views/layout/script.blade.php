@@ -26,5 +26,12 @@
     }
 
 
+    // ajax全局设置
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
 </script>
 @yield('script')

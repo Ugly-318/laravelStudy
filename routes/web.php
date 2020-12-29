@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     //登陆后，博客相关路由
     Route::prefix('blog')->name('blog.')->group(function () {
         //改变博客的状态,发布于不发布
-        Route::patch('/{id}',[\App\Http\Controllers\BlogController::class,'status'])
+        Route::patch('/{blog}/status',[\App\Http\Controllers\BlogController::class,'status'])
             ->name('status');
 
         //评论路由
