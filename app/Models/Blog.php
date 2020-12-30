@@ -31,4 +31,19 @@ class Blog extends Model
     {
         return $this->hasMany(Comment::class,'blog_id','id');
     }
+//    /**
+//     * 模型的 "booted" 方法
+//     *
+//     * @return void
+//     */
+//    protected static function booted()
+//    {
+//        /**
+//         * 模型删除事件
+//         */
+//        static::deleted(function ($blog) {
+//            info ('您删除了博客: ' . $blog->title);
+//        });
+//    }
+
 }

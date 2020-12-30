@@ -32,7 +32,7 @@ class IndexController extends Controller
             })
             ->where('status',1)
             ->orderBy('updated_at','desc')
-            ->paginate(2);
+            ->paginate(3);
 //        ->dd();
 //        dd($blogs);
         return view('index.index',['blogs'=>$blogs]);

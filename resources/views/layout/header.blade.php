@@ -19,6 +19,9 @@
                     <img width="30" height="30" src="{{ avatar(auth()->user()->avatar)}}" class="rounded-pill" alt="用户头像加载失败">
                     <span>{{auth()->user()->name}}</span>
                 </a>
+                <a href="{{route('blog.create')}}" class="text-dark mr-3 text-decoration-none">
+                  发布博客
+                </a>
                 <form method="post" action="{{route('logout')}}" class="d-inline" id="logout">
                     @csrf
                     <a href="javascript:;" onclick="document.getElementById('logout').submit()" class="text-dark text-decoration-none">退出</a>

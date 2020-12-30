@@ -24,7 +24,8 @@
                     <div class="card-body">
                         @foreach($blogs as $blog)
                             <div class="blog-list border-bottom pb-3 mb-3 blog-item">
-                                <div>{{ $blog->title }}</div>
+                                <div><a href="{{ route('blog.show' ,$blog) }}" class="text-dark text-decoration-none">{{ $blog->title }}</a></div>
+
                                 <div class="mt-2 d-flex justify-content-between">
                                     <div class="fs-14 text-muted">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

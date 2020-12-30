@@ -17,6 +17,9 @@
             <div class="col-sm-9">
                 <div class="card">
                     <div class="card-body">
+                        @if(auth()->id() == $blog->user_id)
+                        <div class="text-right"><a href="{{ route('blog.edit',$blog) }}" class="btn btn-primary btn-sm">编辑</a></div>
+                        @endif
                         <h3 class="font-weight-light text-center mb-3">{{ $blog->title }}</h3>
                         <div class="text-center fs-14 text-muted">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-clock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

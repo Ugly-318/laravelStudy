@@ -115,12 +115,34 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
+        //使用事务删除博客
+//        DB::beginTransaction();
+//         try {
+//             //删除博客
+//             $res = $blog->delete();
+//
+//             //删除博客相关评论
+//             $blog->comments()->delete();
+//
+//             //提交事务
+//             DB::commit();
+//
+//             return response()->api('删除成功');
+//         }catch(\Exception $e) {
+//             //回滚事务
+//             DB::rollBack();
+//             return response()->api('删除失败',400);
+//
+//         }
+
+        //使用模型事件删除博客时,自动删除评论
         $res = $blog->delete();
         if ($res) {
             return response()->api('删除成功');
         }else{
             return response()->api('删除失败',400);
         }
+
 
     }
 
